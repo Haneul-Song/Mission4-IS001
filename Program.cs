@@ -1,29 +1,74 @@
-﻿using System;
+﻿using Mission4_IS001;
 
-class Program
+TicTacToeGame t = new TicTacToeGame();
+
+// Create a game board array to store the players’ choices
+char[] boardArray = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+// initialize player 1's turn
+int playerTurn = 0;
+
+//Welcome user to game
+Console.WriteLine("Welcome to Tic-Tac-Toe!!");
+Console.WriteLine("Player 1 (X) - Player 2 (O)");
+
+String gameResult = "";
+
+// Game Loop
+do
 {
-    static void Main()
+    // Turn Loop
+    do
     {
-        //Welcome the User to the Game
-        Console.WriteLine("Welcome to Tic-Tac-Toe!");
+        Console.WriteLine($"Player {playerTurn + 1}, what spot do you want");
 
-        //Create a game *Board Array* to store players choices
-        TicTacToeGame game = new TicTacToeGame();
+        // Print the board by calling the method in the supporting class
+        t.PrintBoard(boardArray);
 
-        //Run through the game 
-        for (int turnCount = 0; turnCount < 9 && !game.IsGameOver(); turnCount++)
-        {
-            game.PrintBoard();  //print the board by calling method in supporting class
-            game.TakeTurn();
-            if (game.CheckForWinner())  //check for winner by using suporting class method
-                break;
+    } while (playGame(playerTurn));
+
+    // switch player functionality
+        if (playerTurn == 0) {
+            playerTurn = 1;
         }
+        else if (playerTurn == 1) {
+            playerTurn = 0;
+        } 
 
-        //Game Over Message
-        Console.WriteLine("Game Over. Thank you for playing!");
+    // Check for a winner by calling the method in the supporting class,
+    gameResult = t.CheckWinner(boardArray);
+} while (gameResult == null);
+
+// Print the board by calling the method in the supporting class
+t.PrintBoard(boardArray);
+// Display the Winner! notify the players when a win has occurred and which player won the game
+Console.WriteLine(gameResult);
+
+
+// Player Turn Function
+bool playGame(int pT)
+{
+    // set playerLetter, expanded functionality
+       char playerLetter = '';
+       if (pT == 0) {
+           playerLetter = 'X';
+       }
+       else if (pT == 1) {
+           playerLetter = 'O';
+       } 
+
+    Console.Write("Enter which square to play on! (enter a number 1-9): ");
+    int playerChoice = (int.Parse(Console.ReadLine()) - 1);
+
+    // update the game board array with player choice, if valid
+    if (playerChoice >= 0 && playerChoice <= 8 && boardArray[playerChoice] == ' ')
+    {
+        boardArray[playerChoice] = playerLetter;
+        return false;
     }
+    else
+    {
+        Console.WriteLine("Oops! That wasn't a valid spot, try again");
+        return true;
+    }
+
 }
-
-
-// How do we want to tell each player its their turn?
-// should we use a for loop or while loop?
