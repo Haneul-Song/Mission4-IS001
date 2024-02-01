@@ -22,7 +22,7 @@ do
         Console.WriteLine($"Player {playerTurn + 1}, what spot do you want");
 
         // Print the board by calling the method in the supporting class
-        t.PrintBoard(boardArray);
+        t.printBoard(boardArray);
 
     } while (playGame(playerTurn));
 
@@ -35,11 +35,11 @@ do
         } 
 
     // Check for a winner by calling the method in the supporting class,
-    gameResult = t.CheckWinner(boardArray);
+    gameResult = t.checkWinner(boardArray);
 } while (gameResult == null);
 
 // Print the board by calling the method in the supporting class
-t.PrintBoard(boardArray);
+t.printBoard(boardArray);
 // Display the Winner! notify the players when a win has occurred and which player won the game
 Console.WriteLine(gameResult);
 // Console.WriteLine("Game Over. Thank you for playing!");
