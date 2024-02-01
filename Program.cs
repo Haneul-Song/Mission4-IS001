@@ -8,7 +8,7 @@ char[] boardArray = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
 int playerTurn = 0;
 
 //Welcome user to game
-Console.WriteLine("Welcome to Tic-Tac-Toe!!");
+Console.WriteLine("Welcome to Tic-Tac-Toe!");
 Console.WriteLine("Player 1 (X) - Player 2 (O)");
 
 String gameResult = "";
@@ -42,13 +42,14 @@ do
 t.PrintBoard(boardArray);
 // Display the Winner! notify the players when a win has occurred and which player won the game
 Console.WriteLine(gameResult);
+// Console.WriteLine("Game Over. Thank you for playing!");
 
 
 // Player Turn Function
 bool playGame(int pT)
 {
     // set playerLetter, expanded functionality
-       char playerLetter = '';
+       char playerLetter = ' ';
        if (pT == 0) {
            playerLetter = 'X';
        }
@@ -67,7 +68,7 @@ bool playGame(int pT)
     }
     else
     {
-        Console.WriteLine("Oops! That wasn't a valid spot, try again");
+        Console.WriteLine("Invalid move. Please choose an empty position.");
         return true;
     }
 
