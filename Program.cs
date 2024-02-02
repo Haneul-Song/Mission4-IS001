@@ -48,28 +48,44 @@ Console.WriteLine(gameResult);
 // Player Turn Function
 bool playGame(int pT)
 {
-    // set playerLetter, expanded functionality
-       char playerLetter = ' ';
-       if (pT == 0) {
-           playerLetter = 'X';
-       }
-       else if (pT == 1) {
-           playerLetter = 'O';
-       } 
+    char playerLetter = (pT == 0) ? 'X' : 'O';
 
-    Console.Write("Enter which square to play on! (enter a number 1-9): ");
-    int playerChoice = (int.Parse(Console.ReadLine()) - 1);
-
-    // update the game board array with player choice, if valid
-    if (playerChoice >= 0 && playerChoice <= 8 && boardArray[playerChoice] == ' ')
+    while (true)
     {
+        Console.Write("Enter which square to play on! (enter a number 1-9): ");
+
+        string input = Console.ReadLine();
+        int playerChoice;
+
+        // Check if input is a valid integer
+        if (!int.TryParse(input, out playerChoice))
+        {
+            Console.WriteLine("Invalid input. Please enter a number.");
+            continue;
+        }
+
+        // Check if the choice is within the valid range
+        if (playerChoice < 1 || playerChoice > 9)
+        {
+            Console.WriteLine("Invalid choice. Please enter a number between 1 and 9.");
+            continue;
+        }
+
+        // Adjust playerChoice for zero-based index
+        playerChoice--;
+
+        // Check if the chosen spot is already taken
+        if (boardArray[playerChoice] != ' ')
+        {
+            Console.WriteLine("That spot is already taken. Please choose another.");
+            continue;
+        }
+
+        // If all checks pass, update the board and break the loop
         boardArray[playerChoice] = playerLetter;
-        return false;
-    }
-    else
-    {
-        Console.WriteLine("Invalid move. Please choose an empty position.");
-        return true;
+        break;
     }
 
+    return false;
 }
+
